@@ -7,8 +7,15 @@
 # All rights reserved - Do Not Redistribute
 #
 
-%w{vim man tree gcc make postfix patch kernel-devel cmake mlocate expect rsync dig}.each do |pkg|
+%w{vim tree gcc make postfix patch cmake mlocate expect rsync}.each do |pkg|
     package pkg do
         action :install
     end
 end
+
+# if redhat, install below:
+# man, kernel-devel
+#
+# decide whether to install: dig
+
+
