@@ -1,11 +1,14 @@
 base CHANGELOG
 ==============
 
-This file is used to list changes made in each version of the base cookbook.
 
 0.1.0
 -----
-- [your_name] - Initial release of base
+- [ikuwow] - Initial release of base
+
+0.2.0
+-----
+- [ikuwow] - Install basic commandline tools
 
 - - -
 Check the [Markdown Syntax Guide](http://daringfireball.net/projects/markdown/syntax) for help with Markdown.
