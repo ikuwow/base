@@ -7,15 +7,21 @@
 # All rights reserved - Do Not Redistribute
 #
 
-%w{vim tree gcc make postfix patch cmake mlocate expect rsync}.each do |pkg|
+%w{vim tree gcc make patch cmake mlocate expect rsync}.each do |pkg|
     package pkg do
         action :install
     end
 end
 
 # if redhat, install below:
-# man, kernel-devel
+# kernel-devel
 #
 # decide whether to install: dig
 
+case node['platform']
+when 'centos', 'redhat'
+    package "man" do
+        action :install
+    end
+end
 
