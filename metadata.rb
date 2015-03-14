@@ -1,4 +1,5 @@
 name             'base'
+depends          'selinux'
 maintainer       'ikuwow'
 maintainer_email 'degawa@ikuwow.com'
 license          'All rights reserved'
