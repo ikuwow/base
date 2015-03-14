@@ -25,3 +25,4 @@ when 'centos', 'redhat'
     end
 end
 
+include_recipe "selinux::disabled"
