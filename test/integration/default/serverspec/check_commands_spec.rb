@@ -1,4 +1,5 @@
 require 'serverspec'
+set :backend, :exec
 
 commands = %w{vim tree patch locate rsync}
 

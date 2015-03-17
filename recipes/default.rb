@@ -25,10 +25,16 @@ when 'centos', 'redhat'
     end
 end
 
+# SELinux disabled
 include_recipe "selinux::disabled"
 
 # degawaユーザーの作成
 user_data = data_bag_item('users','degawa')
+
+# sudo group (allowed to sudo with password)
+group "sudo" do
+    action :create
+end
 
 user user_data["id"] do
     supports :manage_home => true
@@ -43,7 +49,7 @@ end
 # ssh鍵設置
 directory "/home/#{user_data["id"]}/.ssh/" do
     user user_data["id"]
-    group user_data["id"]
+    group "sudo"
     mode 0700
     action :create
 end
@@ -51,7 +57,7 @@ end
 file "/home/#{user_data["id"]}/.ssh/authorized_keys" do
     content user_data["public_keys"]
     user user_data["id"]
-    group user_data["id"]
+    group "sudo"
     mode 0600
     action :create
 end
