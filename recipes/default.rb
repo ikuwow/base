@@ -31,8 +31,11 @@ include_recipe "selinux::disabled"
 # degawaユーザーの作成
 user_data = data_bag_item('users','degawa')
 
-# sudo group (allowed to sudo with password)
-group "sudo" do
+# ikuwow group (allowed to sudo with password)
+# TODO: allow ikuwow group to sudo with password
+
+human_group = "ikuwow"
+group human_group do
     action :create
 end
 
@@ -40,7 +43,7 @@ user user_data["id"] do
     supports :manage_home => true
     home "/home/#{user_data["id"]}"
     shell "/bin/bash"
-    gid "sudo"
+    gid human_group
     action :create
 end
 
@@ -49,7 +52,7 @@ end
 # ssh鍵設置
 directory "/home/#{user_data["id"]}/.ssh/" do
     user user_data["id"]
-    group "sudo"
+    group human_group
     mode 0700
     action :create
 end
@@ -57,7 +60,7 @@ end
 file "/home/#{user_data["id"]}/.ssh/authorized_keys" do
     content user_data["public_keys"]
     user user_data["id"]
-    group "sudo"
+    group human_group
     mode 0600
     action :create
 end
