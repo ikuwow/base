@@ -25,6 +25,10 @@ when 'centos', 'redhat'
     end
 end
 
+# Set timezone to JST
+node.default['system']['timezone'] = 'Japan'
+include_recipe "system::timezone"
+
 # SELinux disabled
 include_recipe "selinux::disabled"
 
@@ -43,7 +47,6 @@ end
 
 node.default['authorization']['sudo']['groups'] = ["ikuwow","root"]
 node.default['authorization']['sudo']['include_sudoers_d'] = true
-
 node.default['authorization']['sudo']['sudoers_defaults'] = [
     '!visiblepw',
     'env_reset',
@@ -78,7 +81,7 @@ user user_data["id"] do
     action :create
 end
 
-# passwordは手動で設定すること
+# 各ユーザーのpasswordは手動で設定すること
 
 # ssh鍵設置
 directory "/home/#{user_data["id"]}/.ssh/" do

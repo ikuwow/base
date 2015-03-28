@@ -1,6 +1,7 @@
 name             'base'
 depends          'selinux', '~> 0.9.0'
 depends          'sudo', '~> 2.7.1'
+depends          'system', '~> 0.5.0'
 maintainer       'ikuwow'
 maintainer_email 'degawa@ikuwow.com'
 license          'All rights reserved'
