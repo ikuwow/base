@@ -44,6 +44,23 @@ end
 node.default['authorization']['sudo']['groups'] = ["ikuwow","root"]
 node.default['authorization']['sudo']['include_sudoers_d'] = true
 
+node.default['authorization']['sudo']['sudoers_defaults'] = [
+    '!visiblepw',
+    'env_reset',
+    'secure_path="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"'
+    # does not include requiretty
+]
+
+if node["platform"] == "centos"
+    node.default['authorization']['sudo']['sudoers_defaults'].concat([
+        'env_keep =  "COLORS DISPLAY HOSTNAME HISTSIZE INPUTRC KDEDIR LS_COLORS"',
+        'env_keep += "MAIL PS1 PS2 QTDIR USERNAME LANG LC_ADDRESS LC_CTYPE"',
+        'env_keep += "LC_COLLATE LC_IDENTIFICATION LC_MEASUREMENT LC_MESSAGES"',
+        'env_keep += "LC_MONETARY LC_NAME LC_NUMERIC LC_PAPER LC_TELEPHONE"',
+        'env_keep += "LC_TIME LC_ALL LANGUAGE LINGUAS _XKB_CHARSET XAUTHORITY"'
+    ])
+end
+
 include_recipe "sudo::default"
 
 sudo 'vagrant' do
