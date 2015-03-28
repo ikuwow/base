@@ -39,6 +39,20 @@ group human_group do
     action :create
 end
 
+# Sudoers
+
+node.default['authorization']['sudo']['groups'] = ["ikuwow","root"]
+node.default['authorization']['sudo']['include_sudoers_d'] = true
+
+include_recipe "sudo::default"
+
+sudo 'vagrant' do
+    user 'vagrant'
+    runas 'ALL'
+    nopasswd true
+    commands ['ALL']
+end
+
 user user_data["id"] do
     supports :manage_home => true
     home "/home/#{user_data["id"]}"
