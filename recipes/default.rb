@@ -12,10 +12,10 @@ swappiness_value = 10
 bash "Set swappiness" do
     code <<-EOC
         echo #{swappiness_value} > /proc/sys/vm/swappiness
-        sysctl -w vm.swappiness=#{swappiness_value}"
+        sysctl -w vm.swappiness=#{swappiness_value}
     EOC
     action :run
-    not_if "test `cat /proc/sys/vm/swappiness` = #{swappiness_value}"
+    not_if "test `sysctl -n vm.swappiness` = #{swappiness_value}"
 end
 
 %w{vim tree gcc make patch cmake mlocate expect rsync}.each do |pkg|
