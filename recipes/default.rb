@@ -25,9 +25,7 @@ when 'centos', 'redhat'
     end
 end
 
-# Set timezone to JST
-node.default['system']['timezone'] = 'Japan'
-include_recipe "system::timezone"
+timezone 'Asia/Tokyo'
 
 # SELinux disabled
 include_recipe "selinux::disabled"
