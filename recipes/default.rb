@@ -37,6 +37,8 @@ when 'centos', 'redhat'
 end
 
 timezone 'Asia/Tokyo'
+node.default['ntp']['servers'] = ['ntp.nict.jp','ntp.jst.mfeed.ad.jp','s2csntp.miz.nao.ac.jp']
+include_recipe 'ntp::default'
 
 # SELinux disabled
 include_recipe "selinux::disabled"
