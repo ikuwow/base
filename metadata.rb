@@ -1,6 +1,6 @@
 name             'base'
-depends          'selinux'
-depends          'sudo'
+depends          'selinux', '~> 0.9.0'
+depends          'sudo', '~> 2.7.1'
 depends          'timezone_lwrp', '~> 0.1.6'
 depends          'ntp', '~> 1.8.6'
 maintainer       'ikuwow'
