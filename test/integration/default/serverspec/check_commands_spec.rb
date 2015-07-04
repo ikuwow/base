@@ -1,7 +1,7 @@
 require 'serverspec'
 set :backend, :exec
 
-commands = %w{vim tree patch locate rsync}
+commands = %w{vim tree patch locate rsync aws}
 
 commands.each do |c|
     describe command("which #{c}") do

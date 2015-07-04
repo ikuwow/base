@@ -18,22 +18,43 @@ bash "Set swappiness" do
     not_if "test `sysctl -n vm.swappiness` = #{swappiness_value}"
 end
 
-%w{vim tree gcc make patch cmake mlocate expect rsync}.each do |pkg|
+%w{vim tree gcc make patch cmake mlocate expect rsync python}.each do |pkg|
     package pkg do
         action :install
     end
 end
+
 
 # if redhat, install below:
 # kernel-devel
 #
 # decide whether to install: dig
 
+
 case node['platform']
 when 'centos', 'redhat'
-    package "man" do
+    %w{man}.each do |p|
+        package p do
+            action :install
+        end
+    end
+    bash 'add_epel' do
+        user 'root'
+        code <<-EOC
+            rpm -ivh http://ftp.riken.jp/Linux/fedora/epel/6/x86_64/epel-release-6-8.noarch.rpm
+            sed -i -e "s/enabled *= *1/enabled=0/g" /etc/yum.repos.d/epel.repo
+        EOC
+        creates "/etc/yum.repos.d/epel.repo"
+        not_if { File.exists?("/etc/yum.repos.d/epel.repo") }
+    end
+    package 'python-pip' do
+        options '--enablerepo=epel'
         action :install
     end
+end
+
+bash "install awscli" do
+    code "pip install awscli"
 end
 
 timezone 'Asia/Tokyo'
