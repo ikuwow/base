@@ -51,6 +51,10 @@ when 'centos', 'redhat'
         options '--enablerepo=epel'
         action :install
     end
+else
+    package 'python-pip' do
+        action :install
+    end
 end
 
 bash "install awscli" do
