@@ -59,6 +59,7 @@ end
 
 bash "install awscli" do
     code "pip install awscli"
+    not_if "which pip"
 end
 
 timezone 'Asia/Tokyo'
